@@ -288,7 +288,7 @@ func (pc *ProxyChecker) updateProxyName(res *Result, httpClient *ProxyClient, sp
 
 	var tags []string
 	// 获取速度
-	if config.GlobalConfig.SpeedTestUrl != "" {
+	if config.GlobalConfig.PrintDownload && config.GlobalConfig.SpeedTestUrl != "" {
 		name = regexp.MustCompile(`\s*\|(?:\s*[\d.]+[KM]B/s)`).ReplaceAllString(name, "")
 		var speedStr string
 		if speed < 1024 {
@@ -323,7 +323,7 @@ func (pc *ProxyChecker) updateProxyName(res *Result, httpClient *ProxyClient, sp
 			}
 		case "gemini":
 			if res.Gemini {
-				tags = append(tags, "GM")
+				tags = append(tags, "Gemini")
 			}
 		case "iprisk":
 			if res.IPRisk != "" {

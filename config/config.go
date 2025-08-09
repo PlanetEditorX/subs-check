@@ -10,6 +10,7 @@ type Config struct {
 	SpeedTestUrl         string   `yaml:"speed-test-url"`
 	DownloadTimeout      int      `yaml:"download-timeout"`
 	DownloadMB           int      `yaml:"download-mb"`
+	PrintDownload        bool     `yaml:"print-download"`
 	TotalSpeedLimit      int      `yaml:"total-speed-limit"`
 	MinSpeed             int      `yaml:"min-speed"`
 	Timeout              int      `yaml:"timeout"`
