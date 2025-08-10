@@ -219,14 +219,30 @@ func (app *App) triggerCheck() {
 // checkProxies 执行代理检测
 func (app *App) checkProxies() error {
 	slog.Info("开始检测代理")
-
-	results, err := check.Check()
-	if err != nil {
-		return fmt.Errorf("检测代理失败: %w", err)
+	var allResults []check.Result // 创建一个空切片，来存储所有合并的结果
+	if len(config.GlobalConfig.SubUrls) == 0 {
+		slog.Warn("没有配置订阅链接")
+	} else {
+		slog.Info(fmt.Sprintf("当前设置机场订阅链接数量: %d", len(config.GlobalConfig.SubUrls)))
+		results, err := CheckProxy("SubUrls")
+		if err != nil {
+			return fmt.Errorf("检测代理失败: %w", err)
+		}
+		allResults = append(allResults, results...)
+	}
+	if len(config.GlobalConfig.FreeSubUrls) == 0 {
+		slog.Warn("没有配置免费订阅链接")
+	} else {
+		slog.Info(fmt.Sprintf("当前设置免费订阅链接数量: %d", len(config.GlobalConfig.FreeSubUrls)))
+		results, err := CheckProxy("FreeSubUrls")
+		if err != nil {
+			return fmt.Errorf("检测代理失败: %w", err)
+		}
+		allResults = append(allResults, results...)
 	}
 	// 将成功的节点添加到全局中，暂时内存保存
 	if config.GlobalConfig.KeepSuccessProxies {
-		for _, result := range results {
+		for _, result := range allResults {
 			if result.Proxy != nil {
 				config.GlobalProxies = append(config.GlobalProxies, result.Proxy)
 			}
@@ -234,15 +250,24 @@ func (app *App) checkProxies() error {
 	}
 
 	slog.Info("检测完成")
-	save.SaveConfig(results)
-	utils.SendNotify(len(results))
+	save.SaveConfig(allResults)
+	utils.SendNotify(len(allResults))
 	utils.UpdateSubs()
 
 	// 执行回调脚本
-	utils.ExecuteCallback(len(results))
+	utils.ExecuteCallback(len(allResults))
 
 	return nil
 }
+
+func CheckProxy(proxyType string) ([]check.Result, error) {
+    results, err := check.Check(proxyType)
+    if err != nil {
+        return nil, fmt.Errorf("检测代理失败: %w", err)
+    }
+    return results, nil
+}
+
 
 func TempLog() string {
 	return filepath.Join(os.TempDir(), "subs-check.log")

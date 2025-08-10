@@ -1,5 +1,6 @@
 # 🚀 订阅检测转换工具
 forked from [beck-8/subs-check](https://github.com/beck-8/subs-check)
+
 > **✨ 修复逻辑、简化操作、增加功能、节省内存、一键启动无需配置**
 
 > **⚠️ 注意：** 功能更新频繁，请查看最新的[配置文件](https://github.com/beck-8/subs-check/blob/master/config/config.example.yaml)以获取最新功能。
@@ -31,7 +32,34 @@ forked from [beck-8/subs-check](https://github.com/beck-8/subs-check)
 
 ## 🛠️ 部署与使用
 > 首次运行会在当前目录生成默认配置文件。
-
+### 本地运行
+  1.安装go依赖
+  ```bash
+  go mod tidy
+  ```
+  2.运行项目
+  ```bash
+  go run . -f ./config/config.yaml
+  ```
+  3.调试项目
+  ```bash
+  {
+      "version": "0.2.0",
+      "configurations": [
+          {
+              "name": "Launch Go Program with Config",
+              "type": "go",
+              "request": "launch",
+              "mode": "auto",
+              "program": "${workspaceFolder}",
+              "args": [
+                  "-f",
+                  "./config/config.yaml"
+              ]
+          }
+      ]
+  }
+  ```
 ### 🪜 代理设置（可选）
 <details>
   <summary>展开查看</summary>

@@ -34,6 +34,7 @@ type Config struct {
 	SubUrlsRetryInterval int      `yaml:"sub-urls-retry-interval"`
 	SubUrlsTimeout       int      `yaml:"sub-urls-timeout"`
 	SubUrls              []string `yaml:"sub-urls"`
+	FreeSubUrls          []string `yaml:"free-sub-urls"`
 	SuccessRate          float32  `yaml:"success-rate"`
 	MihomoApiUrl         string   `yaml:"mihomo-api-url"`
 	MihomoApiSecret      string   `yaml:"mihomo-api-secret"`

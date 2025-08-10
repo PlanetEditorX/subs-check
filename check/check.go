@@ -79,7 +79,7 @@ func NewProxyChecker(proxyCount int) *ProxyChecker {
 }
 
 // Check 执行代理检测的主函数
-func Check() ([]Result, error) {
+func Check(proxyType string) ([]Result, error) {
 	proxyutils.ResetRenameCounter()
 	ForceClose.Store(false)
 
@@ -95,7 +95,7 @@ func Check() ([]Result, error) {
 		slog.Info(fmt.Sprintf("添加之前测试成功的节点，数量: %d", len(config.GlobalProxies)))
 		proxies = append(proxies, config.GlobalProxies...)
 	}
-	tmp, err := proxyutils.GetProxies()
+	tmp, err := proxyutils.GetProxies(proxyType)
 	if err != nil {
 		return nil, fmt.Errorf("获取节点失败: %w", err)
 	}
@@ -109,11 +109,12 @@ func Check() ([]Result, error) {
 	slog.Info(fmt.Sprintf("去重后节点数量: %d", len(proxies)))
 
 	checker := NewProxyChecker(len(proxies))
-	return checker.run(proxies)
+	return checker.run(proxies, proxyType)
 }
 
 // Run 运行检测流程
-func (pc *ProxyChecker) run(proxies []map[string]any) ([]Result, error) {
+func (pc *ProxyChecker) run(proxies []map[string]any, proxyType string) ([]Result, error) {
+
 	if config.GlobalConfig.TotalSpeedLimit != 0 {
 		Bucket = ratelimit.NewBucketWithRate(float64(config.GlobalConfig.TotalSpeedLimit*1024*1024), int64(config.GlobalConfig.TotalSpeedLimit*1024*1024/10))
 	} else {
@@ -158,7 +159,7 @@ func (pc *ProxyChecker) run(proxies []map[string]any) ([]Result, error) {
 		done <- true
 	}
 
-	if config.GlobalConfig.SuccessLimit > 0 && pc.available >= config.GlobalConfig.SuccessLimit {
+	if proxyType == "FreeSubUrls" && config.GlobalConfig.SuccessLimit > 0 && pc.available >= config.GlobalConfig.SuccessLimit {
 		slog.Warn(fmt.Sprintf("达到节点数量限制: %d", config.GlobalConfig.SuccessLimit))
 	}
 	slog.Info(fmt.Sprintf("可用节点数量: %d", len(pc.results)))
