@@ -60,6 +60,17 @@ forked from [beck-8/subs-check](https://github.com/beck-8/subs-check)
       ]
   }
   ```
+### DOCKER运行
+```bash
+docker run -d \
+  --name subs-check \
+  -p 8299:8299 \
+  -p 8199:8199 \
+  -v /vol2/1000/Storage/apps/subs-check/config:/app/config \
+  -v /vol2/1000/Storage/apps/subs-check/output:/app/output \
+  --restart always \
+yexundao/subs-check:latest
+```
 ### 🪜 代理设置（可选）
 <details>
   <summary>展开查看</summary>
