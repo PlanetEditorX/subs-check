@@ -21,12 +21,10 @@ func GetProxies(proxyType string) ([]map[string]any, error) {
 	switch proxyType {
 	case "SubUrls":
 		proxyUrls = config.GlobalConfig.SubUrls
-		slog.Info(fmt.Sprintf("当前机场订阅链接数量: %d", len(proxyUrls)))
 	case "FreeSubUrls":
 		for i, url := range config.GlobalConfig.FreeSubUrls {
 			proxyUrls = append(proxyUrls, fmt.Sprintf("%s#FREE-%d", url, i+1))
 		}
-		slog.Info(fmt.Sprintf("当前免费订阅链接数量: %d", len(proxyUrls)))
 	default:
 		slog.Warn(fmt.Sprintf("未知的代理类型: %s", proxyType))
 	}
