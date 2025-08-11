@@ -2,7 +2,7 @@ name: Check Sub
 
 on:
   # push:
-  dispatch:
+  workflow_dispatch:
   schedule:
     - cron: '0 6 * * *'
 
