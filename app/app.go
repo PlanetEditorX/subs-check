@@ -198,6 +198,13 @@ func (app *App) triggerCheck() {
 		slog.Error(fmt.Sprintf("检测代理失败: %v", err))
 		os.Exit(1)
 	}
+	// 检查一次性路径是否存在,适用于Github Actions,用于一次执行完后退出程序
+	path := "output/once"
+    // 检查路径是否存在
+	if _, err := os.Stat(path); err == nil {
+		fmt.Printf("路径 %s 存在！\n", path)
+		os.Exit(0) // 提前退出
+	}
 
 	// 检测完成后显示下次检查时间
 	if app.ticker != nil {
