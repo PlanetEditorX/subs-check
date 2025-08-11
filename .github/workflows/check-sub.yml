@@ -38,18 +38,16 @@ jobs:
           # 设置最低保留测速结果
           sed -i 's/min-speed: 512/min-speed: 10240/' config/config.yaml
           sed -i 's/download-mb: 10/download-mb: 20/' config/config.yaml
-          sed -i 's/success-limit: 100/success-limit: 10/' config/config.yaml
+          sed -i 's/success-limit: 100/success-limit: 1/' config/config.yaml
 
       - name: 运行程序
         run: |
           go run . -f ./config/config.yaml
 
-      - name: SSH链接管理
-        uses: P3TERX/ssh2actions@v1.0.0
-
       - name: 获取生成YAML文件
         run: |
-          ls -l output/mihomo.yaml
+          ls -l
+          ls -l output/
           cp output/mihomo.yaml assets/mihomo.yaml
 
       - name: 提交更改
