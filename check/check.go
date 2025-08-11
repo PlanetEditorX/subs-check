@@ -132,7 +132,7 @@ func (pc *ProxyChecker) run(proxies []map[string]any, proxyType string) ([]Resul
 	// 启动工作线程
 	for i := 0; i < pc.threadCount; i++ {
 		wg.Add(1)
-		go pc.worker(&wg)
+		go pc.worker(&wg, proxyType)
 	}
 
 	// 发送任务
@@ -172,10 +172,10 @@ func (pc *ProxyChecker) run(proxies []map[string]any, proxyType string) ([]Resul
 }
 
 // worker 处理单个代理检测的工作线程
-func (pc *ProxyChecker) worker(wg *sync.WaitGroup) {
+func (pc *ProxyChecker) worker(wg *sync.WaitGroup, proxyType string) {
 	defer wg.Done()
 	for proxy := range pc.tasks {
-		if result := pc.checkProxy(proxy); result != nil {
+		if result := pc.checkProxy(proxy, proxyType); result != nil {
 			pc.resultChan <- *result
 		}
 		pc.incrementProgress()
@@ -183,7 +183,7 @@ func (pc *ProxyChecker) worker(wg *sync.WaitGroup) {
 }
 
 // checkProxy 检测单个代理
-func (pc *ProxyChecker) checkProxy(proxy map[string]any) *Result {
+func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Result {
 	res := &Result{
 		Proxy: proxy,
 	}
@@ -211,7 +211,8 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any) *Result {
 	}
 
 	var speed int
-	if config.GlobalConfig.SpeedTestUrl != "" {
+	// 当有测速地址，且为免费订阅时，进行测速，付费订阅不进行测速，只检测平台
+	if config.GlobalConfig.SpeedTestUrl != "" && proxyType == "FreeSubUrls" {
 		speed, _, err = platform.CheckSpeed(httpClient.Client, Bucket)
 		if err != nil || speed < config.GlobalConfig.MinSpeed {
 			return nil
