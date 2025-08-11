@@ -15,17 +15,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
           go-version: stable
-          
+
       - name: 设置时区为北京时间
         uses: szenius/set-timezone@v1.2
         with:
-          timezoneLinux: "Asia/Shanghai"     
-          
+          timezoneLinux: "Asia/Shanghai"
+
       - name: 创建Go运行环境
         run: |
           go mod tidy
@@ -38,16 +38,20 @@ jobs:
           # 设置最低保留测速结果
           sed -i 's/min-speed: 512/min-speed: 10240/' config/config.yaml
           sed -i 's/download-mb: 10/download-mb: 20/' config/config.yaml
+          sed -i 's/success-limit: 100/success-limit: 10/' config/config.yaml
 
       - name: 运行程序
         run: |
           go run . -f ./config/config.yaml
-      
+
+      - name: SSH链接管理
+        uses: P3TERX/ssh2actions@v1.0.0
+
       - name: 获取生成YAML文件
         run: |
           ls -l output/mihomo.yaml
           cp output/mihomo.yaml assets/mihomo.yaml
-          
+
       - name: 提交更改
         run: |
           git config --global user.name "github-actions"
