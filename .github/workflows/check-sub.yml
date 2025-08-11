@@ -46,8 +46,8 @@ jobs:
 
       - name: 获取YAML文件
         run: |
-          find /tmp -name "mihomo.yaml"
-          find /tmp -name "mihomo.yaml" -exec cp {} assets/mihomo.yaml \;
+          sudo find /tmp -name "mihomo.yaml"
+          sudo find /tmp -name "mihomo.yaml" -exec cp {} assets/mihomo.yaml \;
           ls -l assets/mihomo.yaml
 
       - name: 提交更改
