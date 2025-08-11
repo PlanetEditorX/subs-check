@@ -44,13 +44,13 @@ jobs:
         run: |
           export envPath=$GITHUB_WORKSPACE
           go run . -f ./config/config.yaml
-          cp output/mihomo.yaml assets/mihomo.yaml
+          cp output/mihomo.yaml assets/Fastest.yaml
 
       - name: 提交更改
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add assets/mihomo.yaml
+          git add assets/Fastest.yaml
           CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
           git commit -m "Update assets/mihomo.yaml at $CURRENT_TIME"
           git push
