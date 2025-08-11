@@ -32,6 +32,7 @@ jobs:
           sed -i 's/min-speed: 512/min-speed: 10240/' config.yaml
 
       - name: Run Go
+        run: |
           go run . -f ./config/config.yaml
           
       # - name: Release
