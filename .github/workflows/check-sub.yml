@@ -44,11 +44,11 @@ jobs:
         run: |
           go run . -f ./config/config.yaml
 
-      - name: 获取生成YAML文件
+      - name: 获取YAML文件
         run: |
-          ls -l
-          ls -l output/
-          cp output/mihomo.yaml assets/mihomo.yaml
+          find / -name "mihomo.yaml"
+          find / -name "mihomo.yaml" -exec cp {} assets/mihomo.yaml \;
+          ls -l assets/mihomo.yaml
 
       - name: 提交更改
         run: |
