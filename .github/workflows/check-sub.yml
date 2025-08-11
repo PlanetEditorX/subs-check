@@ -1,7 +1,7 @@
 name: Check Sub
 
 on:
-  push:
+  # push:
   schedule:
     - cron: '0 6 * * *'
 
@@ -38,7 +38,7 @@ jobs:
         run: |
           cp config/config.example.yaml config/config.yaml
           # 挑选成功节点数量
-          sed -i 's/success-limit: 100/success-limit: 200/' config/config.yaml
+          sed -i 's/success-limit: 100/success-limit: 150/' config/config.yaml
           # 设置最低保留测速结果为10MB/s
           sed -i 's/min-speed: 512/min-speed: 10240/' config/config.yaml
           # 单节点测速下载数据大小(MB)限制为20MB
