@@ -178,6 +178,7 @@ sub-urls:
   # - https://example.com/sub.txt#我是备注我是备注
 # 免费订阅链接：https://raw.githubusercontent.com/cmliu/cmliu/main/SubsCheck-URLs
 free-sub-urls:
+  - "https://raw.githubusercontent.com/PlanetEditorX/subs-check/refs/heads/dev/assets/Best.yaml"
   - "https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml"
   - "https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc0.yaml"
   - "https://raw.githubusercontent.com/xiaoji235/airport-free/refs/heads/main/clash/naidounode.txt"
