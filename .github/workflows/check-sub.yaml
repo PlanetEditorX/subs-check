@@ -1,0 +1,42 @@
+name: Check Sub
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  releaser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Tag
+        run: git fetch --force --tags
+        
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: stable
+          
+      - name: Run Go
+        run: |
+          go mod tidy
+          go run . -f ./config/config.yaml
+          
+      # - name: Release
+      #   uses: goreleaser/goreleaser-action@v4
+      #   with:
+      #     distribution: goreleaser
+      #     version: latest
+      #     args: release --clean
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
