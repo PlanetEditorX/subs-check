@@ -199,6 +199,12 @@ func (app *App) triggerCheck() {
 		os.Exit(1)
 	}
 
+	// 检查一次性路径是否存在,适用于Github Actions,用于一次执行完后退出程序
+	if _, err := os.Stat("output/once"); err == nil {
+		slog.Info("检测到 Github Actions 运行环境，退出程序\n")
+		os.Exit(0) // 提前退出
+	}
+
 	// 检测完成后显示下次检查时间
 	if app.ticker != nil {
 		// 使用间隔时间模式
@@ -261,13 +267,12 @@ func (app *App) checkProxies() error {
 }
 
 func CheckProxy(proxyType string) ([]check.Result, error) {
-    results, err := check.Check(proxyType)
-    if err != nil {
-        return nil, fmt.Errorf("检测代理失败: %w", err)
-    }
-    return results, nil
+	results, err := check.Check(proxyType)
+	if err != nil {
+		return nil, fmt.Errorf("检测代理失败: %w", err)
+	}
+	return results, nil
 }
-
 
 func TempLog() string {
 	return filepath.Join(os.TempDir(), "subs-check.log")
