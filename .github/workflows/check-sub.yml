@@ -29,7 +29,8 @@ jobs:
         run: |
           cp ./config/config.example.yaml ./config/config.yaml
           # 设置最低保留测速结果
-          sed -i 's/min-speed: 512/min-speed: 10240/' config.yaml
+          sed -i 's/min-speed: 512/min-speed: 10240/' ./config/config.yaml
+          sed -i 's/download-mb: 10/download-mb: 20/' ./config/config.yaml
 
       - name: Run Go
         run: |
