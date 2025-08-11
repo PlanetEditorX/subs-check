@@ -2,6 +2,8 @@ name: Check Sub
 
 on:
   push:
+  schedule:
+    - cron: '0 6 * * *'
 
 permissions:
   contents: write
@@ -56,5 +58,3 @@ jobs:
           CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
           git commit -m "Update assets/mihomo.yaml at $CURRENT_TIME"
           git push
-
-
