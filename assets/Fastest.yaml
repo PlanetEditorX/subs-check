@@ -1,0 +1,469 @@
+proxies:
+  - client-fingerprint: chrome
+    name: "\U0001F1EA\U0001F1EAEE_1|YT-US|GPT⁺|FREE-12"
+    network: ws
+    port: 443
+    server: al-akhbar.com
+    tls: true
+    type: vless
+    udp: true
+    uuid: 4e4768df-0fbb-4cc1-8fd3-7c6fea95742a
+    ws-opts:
+      headers:
+        Host: rayan-p11.parastoo.dpdns.org
+      path: /@Rayan_Config
+    servername: rAyAn-P11.PaRaStOo.dPdNs.oRg
+  - client-fingerprint: chrome
+    name: "\U0001F1FA\U0001F1F8US_1|YT-US|GPT⁺|FREE-12"
+    network: ws
+    port: 443
+    server: www.meter.net
+    tls: true
+    type: vless
+    udp: true
+    uuid: 1b368bf6-5aac-413c-a77c-229fb984d5ae
+    ws-opts:
+      headers:
+        Host: mAXNetvIpAp-cLOuD76.netKh3.siTe
+        User-Agent: >-
+          Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/54.0.2840.99 Safari/537.36
+      path: /linkws
+      early-data-header-name: Sec-WebSocket-Protocol
+      max-early-data: 2560
+    xudp: true
+    servername: mAXNetvIpAp-cLOuD76.netKh3.siTe
+  - name: "\U0001F1FA\U0001F1F8US_2|YT-US|Gemini|FREE-12"
+    network: ws
+    port: 8880
+    server: 46.254.92.186
+    skip-cert-verify: false
+    tls: false
+    type: vless
+    udp: true
+    uuid: 583ceab3-4022-4553-9158-9bedc625ad4e
+    ws-opts:
+      headers:
+        Host: ip.langmanshanxi.top
+      path: "/Telegram\U0001F1E8\U0001F1F3 @WangCai2 /"
+      early-data-header-name: Sec-WebSocket-Protocol
+      max-early-data: 2560
+    servername: Telegram-channel-WangCai2
+rule-providers:
+  "\U0001F310 代理域名_PlanetEditorX":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/PlanetEditorX/subconverter/refs/heads/main/custom/ProxyDomain.list
+    path: ./ruleset/ProxyDomain.list
+    interval: 86400
+    format: text
+  "\U0001F310 代理域名_Aethersailor":
+    type: http
+    behavior: classical
+    url: >-
+      https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy.list
+    path: ./ruleset/Custom_Proxy.list
+    interval: 28800
+    format: text
+  "\U0001F6D1 广告拦截_ACL4SSR":
+    type: http
+    behavior: classical
+    url: 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list'
+    path: ./ruleset/BanAD.list
+    interval: 86400
+    format: text
+  "\U0001F6D1 广告拦截_PlanetEditorX":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/PlanetEditorX/subconverter/refs/heads/main/custom/CustomProhibit.list
+    path: ./ruleset/CustomProhibit.list
+    interval: 86400
+    format: text
+  "\U0001F343 应用净化":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list
+    path: ./ruleset/BanProgramAD.list
+    interval: 86400
+    format: text
+  "\U0001F18E AdBlock_EasyList":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanEasyList.list
+    path: ./ruleset/BanEasyList.list
+    interval: 86400
+    format: text
+  "\U0001F18E AdBlock_EasyListChina":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanEasyListChina.list
+    path: ./ruleset/BanEasyListChina.list
+    interval: 86400
+    format: text
+  "\U0001F6E1️ 隐私防护":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanEasyPrivacy.list
+    path: ./ruleset/BanEasyPrivacy.list
+    interval: 86400
+    format: text
+  "\U0001F916 AI服务_PlanetEditorX":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/PlanetEditorX/subconverter/refs/heads/main/custom/ChatGPT.list
+    path: ./ruleset/ChatGPT.list
+    interval: 86400
+    format: text
+  "\U0001F3AF 全球直连_DirectDomain":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/PlanetEditorX/subconverter/refs/heads/main/custom/DirectDomain.list
+    path: ./ruleset/DirectDomain.list
+    interval: 86400
+    format: text
+  "\U0001F3AF 全球直连_DirectIP":
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/PlanetEditorX/subconverter/refs/heads/main/custom/DirectIP.list
+    path: ./ruleset/DirectIP.list
+    interval: 86400
+    format: text
+  ✈️ 机场连接:
+    type: http
+    behavior: classical
+    url: >-
+      https://raw.githubusercontent.com/PlanetEditorX/subconverter/refs/heads/main/custom/AirportIP.list
+    path: ./ruleset/AirportIP.list
+    interval: 86400
+    format: text
+  "\U0001F3AF 全球直连_CustomDirect":
+    type: http
+    behavior: classical
+    url: >-
+      https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct.list
+    path: ./ruleset/Custom_Direct.list
+    interval: 28800
+    format: text
+  "\U0001F3AF 全球直连_SteamCDN":
+    type: http
+    behavior: classical
+    url: >-
+      https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN.list
+    path: ./ruleset/Steam_CDN.list
+    interval: 28800
+    format: text
+proxy-groups:
+  - name: "\U0001F680 节点选择"
+    type: select
+    proxies:
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 手动选择"
+      - "\U0001F381 免费节点"
+      - DIRECT
+  - name: "\U0001F680 手动选择"
+    type: select
+    include-all-proxies: true
+    exclude-filter: (?i)FREE-.*
+  - name: ☯︎ 智能选择
+    type: smart
+    include-all-proxies: true
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    policy-priority: >-
+      v5:2;G口:1.8;hk:1.5;香港:1.5;sg:1.4;新加坡:1.4;日本:1;jp:1;台湾:0.9;tw:0.9;v4:0.8;阿根廷:0.3;ipv6:0.3;FREE-*:0;
+    uselightgbm: true
+    collectdata: true
+    strategy: sticky-sessions
+    exclude-filter: (?i)FREE-.*
+  - name: "\U0001F1ED\U0001F1F0 香港智能"
+    type: smart
+    include-all-proxies: true
+    filter: (港|HK|hk|Hong Kong|HongKong|hongkong|深港)
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    uselightgbm: true
+    collectdata: true
+    strategy: sticky-sessions
+    exclude-filter: (?i)FREE-.*
+  - name: "\U0001F1F8\U0001F1EC 狮城智能"
+    type: smart
+    include-all-proxies: true
+    filter: (新加坡|坡|狮城|SG|Singapore)
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    uselightgbm: true
+    collectdata: true
+    strategy: sticky-sessions
+    exclude-filter: (?i)FREE-.*
+  - name: "\U0001F1FA\U0001F1F2 美国智能"
+    type: smart
+    include-all-proxies: true
+    filter: >-
+      (美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United
+      States|UnitedStates|ChatGPT|chatgpt)
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    uselightgbm: true
+    collectdata: true
+    strategy: sticky-sessions
+    exclude-filter: (?i)FREE-.*
+  - name: "\U0001F4AC Telegram"
+    type: select
+    proxies:
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - ☯︎ 智能选择
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 手动选择"
+  - name: "\U0001F680 GitHub"
+    type: select
+    proxies:
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 手动选择"
+      - "\U0001F3AF 全球直连"
+  - name: "\U0001F916 AI服务"
+    type: select
+    proxies:
+      - "\U0001F1FA\U0001F1F2 美国智能"
+      - ☯︎ 智能选择
+      - "\U0001F310 其他地区"
+      - "\U0001F680 手动选择"
+  - name: "\U0001F310 代理域名"
+    type: select
+    proxies:
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 节点选择"
+      - DIRECT
+      - "\U0001F680 手动选择"
+  - name: "\U0001F4F9 YouTube"
+    type: select
+    proxies:
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F310 其他地区"
+      - "\U0001F680 手动选择"
+  - name: "\U0001F1EC 谷歌服务"
+    type: select
+    proxies:
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - ☯︎ 智能选择
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+  - name: "\U0001F30E 国外媒体"
+    type: select
+    proxies:
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F310 其他地区"
+      - "\U0001F680 手动选择"
+      - "\U0001F3AF 全球直连"
+  - name: "\U0001F6D2 国外电商"
+    type: select
+    proxies:
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F310 其他地区"
+      - "\U0001F680 手动选择"
+      - "\U0001F3AF 全球直连"
+  - name: "\U0001F4E2 谷歌FCM"
+    type: select
+    proxies:
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - ☯︎ 智能选择
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F310 其他地区"
+      - "\U0001F680 手动选择"
+      - "\U0001F3AF 全球直连"
+  - name: "\U0001F34E 苹果服务"
+    type: select
+    proxies:
+      - "\U0001F3AF 全球直连"
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 手动选择"
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - "\U0001F3AF 全球直连"
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 手动选择"
+      - REJECT
+  - name: "\U0001F3AE 游戏平台"
+    type: select
+    proxies:
+      - "\U0001F3AF 全球直连"
+      - "\U0001F680 手动选择"
+  - name: "\U0001F3AE Steam"
+    type: select
+    proxies:
+      - "\U0001F3AF 全球直连"
+      - "\U0001F680 手动选择"
+  - name: "\U0001F680 测速工具"
+    type: select
+    proxies:
+      - "\U0001F3AF 全球直连"
+      - "\U0001F680 手动选择"
+  - name: "\U0001F41F 漏网之鱼"
+    type: select
+    proxies:
+      - ☯︎ 智能选择
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 节点选择"
+      - "\U0001F3AF 全球直连"
+  - name: "\U0001F381 免费节点"
+    type: smart
+    include-all-proxies: true
+    filter: (FREE)
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    uselightgbm: true
+    collectdata: false
+    strategy: sticky-sessions
+  - name: ✈️ 机场连接
+    type: select
+    proxies:
+      - DIRECT
+      - "\U0001F680 节点选择"
+  - name: "\U0001F6D1 广告拦截"
+    type: select
+    proxies:
+      - REJECT
+  - name: "\U0001F343 应用净化"
+    type: select
+    proxies:
+      - REJECT
+  - name: "\U0001F18E AdBlock"
+    type: select
+    proxies:
+      - REJECT
+  - name: "\U0001F6E1️ 隐私防护"
+    type: select
+    proxies:
+      - REJECT
+  - name: "\U0001F1EF\U0001F1F5 日本智能"
+    type: smart
+    include-all-proxies: true
+    filter: "(日本|川日|东京|大阪|泉日|埼玉|沪日|深日|(?<!尼|-)日|JP|Japan|\U0001F1EF\U0001F1F5)"
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    uselightgbm: true
+    collectdata: true
+    strategy: sticky-sessions
+  - name: "\U0001F1E8\U0001F1F3 台湾智能"
+    type: smart
+    include-all-proxies: true
+    filter: (台|新北|彰化|TW|Taiwan)
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    uselightgbm: true
+    collectdata: true
+    strategy: sticky-sessions
+  - name: "\U0001F310 其他地区"
+    type: smart
+    include-all-proxies: true
+    filter: "^(?!.*(港|HK|hk|Hong Kong|HongKong|hongkong|深港|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States|UnitedStates|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|(?<!尼|-)日|JP|Japan|\U0001F1EF\U0001F1F5|新加坡|坡|狮城|SG|Singapore|台|新北|彰化|TW|Taiwan|KR|Korea|KOR|首尔|韩|韓)).*"
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    uselightgbm: true
+    collectdata: true
+    strategy: sticky-sessions
+  - name: "\U0001F310 社交媒体"
+    type: select
+    proxies:
+      - "\U0001F1ED\U0001F1F0 香港智能"
+      - ☯︎ 智能选择
+      - "\U0001F1F8\U0001F1EC 狮城智能"
+      - "\U0001F1E8\U0001F1F3 台湾智能"
+      - "\U0001F1EF\U0001F1F5 日本智能"
+      - "\U0001F680 手动选择"
+  - name: "\U0001F3AF 全球直连"
+    type: select
+    proxies:
+      - DIRECT
+rules:
+  - "RULE-SET,\U0001F310 代理域名_PlanetEditorX,\U0001F310 代理域名"
+  - "RULE-SET,\U0001F310 代理域名_Aethersailor,\U0001F310 代理域名"
+  - "RULE-SET,\U0001F6D1 广告拦截_ACL4SSR,\U0001F6D1 广告拦截"
+  - "RULE-SET,\U0001F6D1 广告拦截_PlanetEditorX,\U0001F6D1 广告拦截"
+  - "RULE-SET,\U0001F343 应用净化,\U0001F343 应用净化"
+  - "RULE-SET,\U0001F18E AdBlock_EasyList,\U0001F18E AdBlock"
+  - "RULE-SET,\U0001F18E AdBlock_EasyListChina,\U0001F18E AdBlock"
+  - "RULE-SET,\U0001F6E1️ 隐私防护,\U0001F6E1️ 隐私防护"
+  - "RULE-SET,\U0001F916 AI服务_PlanetEditorX,\U0001F916 AI服务"
+  - "RULE-SET,\U0001F3AF 全球直连_DirectDomain,\U0001F3AF 全球直连"
+  - "RULE-SET,\U0001F3AF 全球直连_DirectIP,\U0001F3AF 全球直连"
+  - 'RULE-SET,✈️ 机场连接,✈️ 机场连接'
+  - "GEOSITE,private,\U0001F3AF 全球直连"
+  - "GEOIP,private,\U0001F3AF 全球直连"
+  - "RULE-SET,\U0001F3AF 全球直连_CustomDirect,\U0001F3AF 全球直连"
+  - "GEOSITE,google-cn,\U0001F3AF 全球直连"
+  - "GEOSITE,category-games@cn,\U0001F3AF 全球直连"
+  - "RULE-SET,\U0001F3AF 全球直连_SteamCDN,\U0001F3AF 全球直连"
+  - "GEOSITE,category-game-platforms-download,\U0001F3AF 全球直连"
+  - "GEOSITE,category-public-tracker,\U0001F3AF 全球直连"
+  - "GEOSITE,category-communication,\U0001F4AC Telegram"
+  - "GEOSITE,category-social-media-!cn,\U0001F310 社交媒体"
+  - "GEOSITE,bing,\U0001F916 AI服务"
+  - "GEOSITE,openai,\U0001F916 AI服务"
+  - "GEOSITE,category-ai-!cn,\U0001F916 AI服务"
+  - "GEOSITE,github,\U0001F680 GitHub"
+  - "GEOSITE,category-speedtest,\U0001F680 测速工具"
+  - "GEOSITE,steam,\U0001F3AE Steam"
+  - "GEOSITE,youtube,\U0001F4F9 YouTube"
+  - "GEOSITE,apple,\U0001F34E 苹果服务"
+  - 'GEOSITE,microsoft,Ⓜ️ 微软服务'
+  - "GEOSITE,googlefcm,\U0001F4E2 谷歌FCM"
+  - "GEOSITE,google,\U0001F1EC 谷歌服务"
+  - "GEOSITE,category-games,\U0001F3AE 游戏平台"
+  - "GEOSITE,category-entertainment,\U0001F30E 国外媒体"
+  - "GEOSITE,category-ecommerce,\U0001F6D2 国外电商"
+  - "GEOIP,telegram,\U0001F4AC Telegram"
+  - "GEOIP,twitter,\U0001F310 社交媒体"
+  - "GEOIP,facebook,\U0001F310 社交媒体"
+  - "GEOIP,google,\U0001F1EC 谷歌服务"
+  - "GEOSITE,cn,\U0001F3AF 全球直连"
+  - "GEOIP,cn,\U0001F3AF 全球直连"
+  - "GEOSITE,gfw,\U0001F310 代理域名"
+  - "MATCH,\U0001F41F 漏网之鱼"
