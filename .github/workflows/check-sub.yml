@@ -35,22 +35,24 @@ jobs:
       - name: 设置配置参数config.yaml
         run: |
           cp config/config.example.yaml config/config.yaml
-          # 设置最低保留测速结果
+          # 挑选成功节点数量
+          sed -i 's/success-limit: 100/success-limit: 0/' config/config.yaml
+          # 设置最低保留测速结果为10MB/s
           sed -i 's/min-speed: 512/min-speed: 10240/' config/config.yaml
+          # 单节点测速下载数据大小(MB)限制为20MB
           sed -i 's/download-mb: 10/download-mb: 20/' config/config.yaml
-          # sed -i 's/success-limit: 100/success-limit: 1/' config/config.yaml
 
       - name: 运行程序并获取YAML文件
         run: |
           export envPath=$GITHUB_WORKSPACE
           go run . -f ./config/config.yaml
-          cp output/all.yaml assets/Fastest.yaml
+          cp output/all.yaml assets/Best.yaml
 
       - name: 提交更改
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add assets/Fastest.yaml
+          git add assets/Best.yaml
           CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
           git commit -m "Update assets/mihomo.yaml at $CURRENT_TIME"
           git push
