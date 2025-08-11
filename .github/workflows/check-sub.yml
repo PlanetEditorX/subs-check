@@ -2,8 +2,6 @@ name: Check Sub
 
 on:
   push:
-    # tags:
-    #   - 'v*.*.*'
 
 permissions:
   contents: write
@@ -18,9 +16,6 @@ jobs:
         with:
           fetch-depth: 0
           
-      - name: Tag
-        run: git fetch --force --tags
-        
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -29,6 +24,7 @@ jobs:
       - name: Run Go
         run: |
           go mod tidy
+          cp ./config/config.example.yaml ./config/config.yaml
           go run . -f ./config/config.yaml
           
       # - name: Release
