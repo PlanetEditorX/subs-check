@@ -44,8 +44,7 @@ jobs:
         run: |
           export envPath=$GITHUB_WORKSPACE
           go run . -f ./config/config.yaml
-          ls -l output
-          ls -l assets/mihomo.yaml
+          cp output/mihomo.yaml assets/mihomo.yaml
 
       - name: 提交更改
         run: |
