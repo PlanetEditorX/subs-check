@@ -38,13 +38,13 @@ jobs:
           # 设置最低保留测速结果
           sed -i 's/min-speed: 512/min-speed: 10240/' config/config.yaml
           sed -i 's/download-mb: 10/download-mb: 20/' config/config.yaml
-          sed -i 's/success-limit: 100/success-limit: 1/' config/config.yaml
+          # sed -i 's/success-limit: 100/success-limit: 1/' config/config.yaml
 
       - name: 运行程序并获取YAML文件
         run: |
           export envPath=$GITHUB_WORKSPACE
           go run . -f ./config/config.yaml
-          cp output/mihomo.yaml assets/Fastest.yaml
+          cp output/all.yaml assets/Fastest.yaml
 
       - name: 提交更改
         run: |
