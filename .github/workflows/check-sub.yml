@@ -42,11 +42,9 @@ jobs:
 
       - name: 运行程序并获取YAML文件
         run: |
-          ls -l output
+          export envPath=$GITHUB_WORKSPACE
           go run . -f ./config/config.yaml
           ls -l output
-          sudo find /tmp -name "mihomo.yaml"
-          sudo find /tmp -name "mihomo.yaml" -exec cp {} assets/mihomo.yaml \;
           ls -l assets/mihomo.yaml
 
       - name: 提交更改
