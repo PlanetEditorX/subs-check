@@ -40,12 +40,9 @@ jobs:
           sed -i 's/download-mb: 10/download-mb: 20/' config/config.yaml
           sed -i 's/success-limit: 100/success-limit: 1/' config/config.yaml
 
-      - name: 运行程序
+      - name: 运行程序并获取YAML文件
         run: |
           go run . -f ./config/config.yaml
-
-      - name: 获取YAML文件
-        run: |
           sudo find /tmp -name "mihomo.yaml"
           sudo find /tmp -name "mihomo.yaml" -exec cp {} assets/mihomo.yaml \;
           ls -l assets/mihomo.yaml
