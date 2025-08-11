@@ -179,6 +179,7 @@ sub-urls:
 # 免费订阅链接：https://raw.githubusercontent.com/cmliu/cmliu/main/SubsCheck-URLs
 free-sub-urls:
   - "https://raw.githubusercontent.com/PlanetEditorX/subs-check/refs/heads/dev/assets/Best.yaml"
+  - "https://cdn.jsdelivr.net/gh/peasoft/NoMoreWalls@master/list.meta.yml"
   - "https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml"
   - "https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc0.yaml"
   - "https://raw.githubusercontent.com/xiaoji235/airport-free/refs/heads/main/clash/naidounode.txt"
