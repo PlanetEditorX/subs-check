@@ -8,7 +8,7 @@ permissions:
   packages: write
 
 jobs:
-  Run_Check:
+  BuildAndUpdate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,29 +21,40 @@ jobs:
         with:
           go-version: stable
           
-      - name: Building Go Environment
+      - name: 设置时区为北京时间
+        uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Asia/Shanghai"     
+          
+      - name: 创建Go运行环境
         run: |
           go mod tidy
           mkdir output
           touch output/once
 
-      - name: Setting config.yaml
+      - name: 设置配置参数config.yaml
         run: |
-          cp ./config/config.example.yaml ./config/config.yaml
+          cp config/config.example.yaml config/config.yaml
           # 设置最低保留测速结果
-          sed -i 's/min-speed: 512/min-speed: 10240/' ./config/config.yaml
-          sed -i 's/download-mb: 10/download-mb: 20/' ./config/config.yaml
+          sed -i 's/min-speed: 512/min-speed: 10240/' config/config.yaml
+          sed -i 's/download-mb: 10/download-mb: 20/' config/config.yaml
 
-      - name: Run Go
+      - name: 运行程序
         run: |
           go run . -f ./config/config.yaml
+      
+      - name: 获取生成YAML文件
+        run: |
+          ls -l output/mihomo.yaml
+          cp output/mihomo.yaml assets/mihomo.yaml
           
-      # - name: Release
-      #   uses: goreleaser/goreleaser-action@v4
-      #   with:
-      #     distribution: goreleaser
-      #     version: latest
-      #     args: release --clean
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 提交更改
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add assets/mihomo.yaml
+          CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+          git commit -m "Update assets/mihomo.yaml at $CURRENT_TIME"
+          git push
+
 
