@@ -4,7 +4,7 @@ print-progress: true
 # 并发线程数
 concurrent: 20
 # 检查间隔(分钟)
-check-interval: 120
+check-interval: 1440
 # cron表达式，如果配置了此项，将忽略check-interval
 # 支持标准cron表达式，如：
 # "0 */2 * * *" 表示每2小时的整点执行
@@ -29,7 +29,7 @@ min-speed: 512
 # 下载测试时间(s)(与下载链接大小相关，默认最大测试10s)
 download-timeout: 10
 # 单节点测速下载数据大小(MB)限制，0为不限
-download-mb: 20
+download-mb: 10
 # 节点名是否增加下载速度
 # 如果为true，节点名将会包含下载速度信息
 PrintDownload: false
