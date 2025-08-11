@@ -8,7 +8,7 @@ permissions:
   packages: write
 
 jobs:
-  releaser:
+  Run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,10 +21,17 @@ jobs:
         with:
           go-version: stable
           
-      - name: Run Go
+      - name: Building Go Environment
         run: |
           go mod tidy
+
+      - name: Setting config.yaml
+        run: |
           cp ./config/config.example.yaml ./config/config.yaml
+          # 设置最低保留测速结果
+          sed -i 's/min-speed: 512/min-speed: 10240/' config.yaml
+
+      - name: Run Go
           go run . -f ./config/config.yaml
           
       # - name: Release
