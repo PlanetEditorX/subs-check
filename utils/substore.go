@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/beck-8/subs-check/config"
+	"subs-check/config"
 )
 
 type sub struct {

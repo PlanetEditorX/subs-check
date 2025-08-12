@@ -16,9 +16,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/beck-8/subs-check/check/platform"
-	"github.com/beck-8/subs-check/config"
-	proxyutils "github.com/beck-8/subs-check/proxy"
+	"subs-check/check/platform"
+	"subs-check/config"
+	proxyutils "subs-check/proxy"
 	"github.com/juju/ratelimit"
 	"github.com/metacubex/mihomo/adapter"
 	"github.com/metacubex/mihomo/constant"
@@ -91,9 +91,10 @@ func Check(proxyType string) ([]Result, error) {
 
 	// 之前好的节点前置
 	var proxies []map[string]any
-	if config.GlobalConfig.KeepSuccessProxies {
-		slog.Info(fmt.Sprintf("添加之前测试成功的节点，数量: %d", len(config.GlobalProxies)))
-		proxies = append(proxies, config.GlobalProxies...)
+	save_proxies, err := GetGlobalProxies(proxyType)
+	if save_proxies != nil && err == nil {
+		slog.Info(fmt.Sprintf("添加之前测试成功的节点，数量: %d", len(save_proxies)))
+		proxies = append(proxies, save_proxies...)
 	}
 	tmp, err := proxyutils.GetProxies(proxyType)
 	if err != nil {
@@ -103,7 +104,7 @@ func Check(proxyType string) ([]Result, error) {
 	slog.Info(fmt.Sprintf("获取节点数量: %d", len(proxies)))
 
 	// 重置全局节点
-	config.GlobalProxies = make([]map[string]any, 0)
+	config.GlobalProxies = &config.GlobalProxiesStruct{}
 
 	proxies = proxyutils.DeduplicateProxies(proxies)
 	slog.Info(fmt.Sprintf("去重后节点数量: %d", len(proxies)))
@@ -271,6 +272,19 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Resu
 	pc.updateProxyName(res, httpClient, speed)
 	pc.incrementAvailable()
 	return res
+}
+
+func GetGlobalProxies(proxyType string) ([]map[string]any, error) {
+	// 将成功的节点添加到全局中，暂时内存保存
+	if config.GlobalConfig.KeepSuccessProxies {
+		switch proxyType {
+			case "SubUrls":
+				return config.GlobalProxies.SubUrls, nil
+			case "FreeSubUrls":
+				return config.GlobalProxies.FreeSubUrls, nil
+		}
+	}
+	return nil, nil
 }
 
 // updateProxyName 更新代理名称

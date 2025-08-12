@@ -11,12 +11,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/beck-8/subs-check/app/monitor"
-	"github.com/beck-8/subs-check/assets"
-	"github.com/beck-8/subs-check/check"
-	"github.com/beck-8/subs-check/config"
-	"github.com/beck-8/subs-check/save"
-	"github.com/beck-8/subs-check/utils"
+	"subs-check/app/monitor"
+	"subs-check/assets"
+	"subs-check/check"
+	"subs-check/config"
+	"subs-check/save"
+	"subs-check/utils"
 	"github.com/fsnotify/fsnotify"
 	"github.com/robfig/cron/v3"
 )
@@ -235,6 +235,7 @@ func (app *App) checkProxies() error {
 			return fmt.Errorf("检测代理失败: %w", err)
 		}
 		allResults = append(allResults, results...)
+		SetGlobalProxies("SubUrls", results)
 	}
 	if len(config.GlobalConfig.FreeSubUrls) == 0 {
 		slog.Warn("没有配置免费订阅链接")
@@ -245,14 +246,7 @@ func (app *App) checkProxies() error {
 			return fmt.Errorf("检测代理失败: %w", err)
 		}
 		allResults = append(allResults, results...)
-	}
-	// 将成功的节点添加到全局中，暂时内存保存
-	if config.GlobalConfig.KeepSuccessProxies {
-		for _, result := range allResults {
-			if result.Proxy != nil {
-				config.GlobalProxies = append(config.GlobalProxies, result.Proxy)
-			}
-		}
+		SetGlobalProxies("FreeSubUrls", results)
 	}
 
 	slog.Info("检测完成")
@@ -263,6 +257,23 @@ func (app *App) checkProxies() error {
 	// 执行回调脚本
 	utils.ExecuteCallback(len(allResults))
 
+	return nil
+}
+
+// 将成功的节点添加到全局中，暂时内存保存
+func SetGlobalProxies(proxyType string, allResults []check.Result) error {
+	if config.GlobalConfig.KeepSuccessProxies {
+		for _, result := range allResults {
+			if result.Proxy != nil {
+				switch proxyType {
+					case "SubUrls":
+						config.GlobalProxies.SubUrls = append(config.GlobalProxies.SubUrls, result.Proxy)
+					case "FreeSubUrls":
+						config.GlobalProxies.FreeSubUrls = append(config.GlobalProxies.FreeSubUrls, result.Proxy)
+					}
+			}
+		}
+	}
 	return nil
 }
 

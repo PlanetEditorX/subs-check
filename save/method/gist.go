@@ -10,7 +10,7 @@ import (
 
 	"log/slog"
 
-	"github.com/beck-8/subs-check/config"
+	"subs-check/config"
 )
 
 var (

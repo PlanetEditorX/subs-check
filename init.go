@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/beck-8/subs-check/app"
+	"subs-check/app"
 	"github.com/lmittmann/tint"
 	mihomoLog "github.com/metacubex/mihomo/log"
 	"gopkg.in/natefinch/lumberjack.v2"

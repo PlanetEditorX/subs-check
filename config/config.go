@@ -73,4 +73,9 @@ var GlobalConfig = &Config{
 //go:embed config.example.yaml
 var DefaultConfigTemplate []byte
 
-var GlobalProxies []map[string]any
+type GlobalProxiesStruct struct {
+	SubUrls     []map[string]any
+	FreeSubUrls []map[string]any
+}
+
+var GlobalProxies = &GlobalProxiesStruct{}

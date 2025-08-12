@@ -1,4 +1,4 @@
-module github.com/beck-8/subs-check
+module subs-check
 
 go 1.24.3
 
