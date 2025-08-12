@@ -271,8 +271,8 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Resu
 	return res
 }
 
+// 获取内存中上次成功的节点
 func GetGlobalProxies(proxyType string) ([]map[string]any, error) {
-	// 将成功的节点添加到全局中，暂时内存保存
 	if config.GlobalConfig.KeepSuccessProxies {
 		switch proxyType {
 			case "SubUrls":
