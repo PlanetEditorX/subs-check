@@ -103,9 +103,6 @@ func Check(proxyType string) ([]Result, error) {
 	proxies = append(proxies, tmp...)
 	slog.Info(fmt.Sprintf("获取节点数量: %d", len(proxies)))
 
-	// 重置全局节点
-	config.GlobalProxies = &config.GlobalProxiesStruct{}
-
 	proxies = proxyutils.DeduplicateProxies(proxies)
 	slog.Info(fmt.Sprintf("去重后节点数量: %d", len(proxies)))
 
@@ -279,9 +276,14 @@ func GetGlobalProxies(proxyType string) ([]map[string]any, error) {
 	if config.GlobalConfig.KeepSuccessProxies {
 		switch proxyType {
 			case "SubUrls":
-				return config.GlobalProxies.SubUrls, nil
+				proxys := config.GlobalProxies.SubUrls
+				// 重置全局节点
+				config.GlobalProxies.SubUrls = make([]map[string]any, 0)
+				return proxys, nil
 			case "FreeSubUrls":
-				return config.GlobalProxies.FreeSubUrls, nil
+				proxys := config.GlobalProxies.FreeSubUrls
+				config.GlobalProxies.FreeSubUrls = make([]map[string]any, 0)
+				return proxys, nil
 		}
 	}
 	return nil, nil
