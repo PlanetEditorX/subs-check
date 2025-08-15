@@ -55,6 +55,7 @@ type Config struct {
 	MediaCheck           bool     `yaml:"media-check"`
 	Platforms            []string `yaml:"platforms"`
 	YoutubeCountry       bool     `yaml:"youtube-country"`
+	ExcludeNodes         []string `yaml:"exclude-nodes"`
 	SuccessLimit         int32    `yaml:"success-limit"`
 	NodePrefix           string   `yaml:"node-prefix"`
 	EnableWebUI          bool     `yaml:"enable-web-ui"`

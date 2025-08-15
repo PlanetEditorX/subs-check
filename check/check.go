@@ -19,6 +19,7 @@ import (
 	"subs-check/check/platform"
 	"subs-check/config"
 	proxyutils "subs-check/proxy"
+
 	"github.com/juju/ratelimit"
 	"github.com/metacubex/mihomo/adapter"
 	"github.com/metacubex/mihomo/constant"
@@ -191,6 +192,16 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Resu
 		return res
 	}
 
+	// 排除名称中包含特定关键词的节点
+	if name, ok := proxy["name"].(string); ok {
+		for _, kw := range config.GlobalConfig.ExcludeNodes {
+			if strings.Contains(name, kw) {
+				slog.Debug(fmt.Sprintf("跳过包含关键词 [%s] 的节点: %v", kw, name))
+				return nil
+			}
+		}
+	}
+
 	httpClient := CreateClient(proxy)
 	if httpClient == nil {
 		slog.Debug(fmt.Sprintf("创建代理Client失败: %v", proxy["name"]))
@@ -293,15 +304,15 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Resu
 func GetGlobalProxies(proxyType string) ([]map[string]any, error) {
 	if config.GlobalConfig.KeepSuccessProxies {
 		switch proxyType {
-			case "SubUrls":
-				proxys := config.GlobalProxies.SubUrls
-				// 重置全局节点
-				config.GlobalProxies.SubUrls = make([]map[string]any, 0)
-				return proxys, nil
-			case "FreeSubUrls":
-				proxys := config.GlobalProxies.FreeSubUrls
-				config.GlobalProxies.FreeSubUrls = make([]map[string]any, 0)
-				return proxys, nil
+		case "SubUrls":
+			proxys := config.GlobalProxies.SubUrls
+			// 重置全局节点
+			config.GlobalProxies.SubUrls = make([]map[string]any, 0)
+			return proxys, nil
+		case "FreeSubUrls":
+			proxys := config.GlobalProxies.FreeSubUrls
+			config.GlobalProxies.FreeSubUrls = make([]map[string]any, 0)
+			return proxys, nil
 		}
 	}
 	return nil, nil
