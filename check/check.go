@@ -367,7 +367,12 @@ func (pc *ProxyChecker) updateProxyName(res *Result, httpClient *ProxyClient, sp
 			}
 		case "youtube":
 			if res.Youtube != "" {
-				tags = append(tags, fmt.Sprintf("YT-%s", res.Youtube))
+				if config.GlobalConfig.YoutubeCountry {
+					tags = append(tags, fmt.Sprintf("YT-%s", res.Youtube))
+				} else {
+					// 如果不显示国家，则只添加 YT 标签
+					tags = append(tags, "YT")
+				}
 			}
 		case "tiktok":
 			if res.TikTok != "" {

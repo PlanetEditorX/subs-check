@@ -54,6 +54,7 @@ type Config struct {
 	MihomoOverwriteUrl   string   `yaml:"mihomo-overwrite-url"`
 	MediaCheck           bool     `yaml:"media-check"`
 	Platforms            []string `yaml:"platforms"`
+	YoutubeCountry       bool     `yaml:"youtube-country"`
 	SuccessLimit         int32    `yaml:"success-limit"`
 	NodePrefix           string   `yaml:"node-prefix"`
 	EnableWebUI          bool     `yaml:"enable-web-ui"`
