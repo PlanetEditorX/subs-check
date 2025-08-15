@@ -134,7 +134,7 @@ func (pc *ProxyChecker) run(proxies []map[string]any, proxyType string) ([]Resul
 	}
 
 	// 发送任务
-	go pc.distributeProxies(proxies)
+	go pc.distributeProxies(proxies, proxyType)
 	slog.Debug(fmt.Sprintf("发送任务: %d", len(proxies)))
 
 	// 收集结果 - 添加一个 WaitGroup 来等待结果收集完成
@@ -198,14 +198,31 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Resu
 	}
 	defer httpClient.Close()
 
+	// 检测失败
+	// - 如果是免费订阅链接，则返回失败
+	// - 如果是订阅链接且开启了订阅检查，则返回失败
+	// - 如果是订阅链接且关闭了订阅检查，继续检测
+	isSub := proxyType == "SubUrls"
+	isFree := proxyType == "FreeSubUrls"
+	isStrictCheck := isFree || (isSub && config.GlobalConfig.SubCheck)
+
 	cloudflare, err := platform.CheckCloudflare(httpClient.Client)
-	if err != nil || !cloudflare {
+	if (err != nil || !cloudflare) && isStrictCheck {
+		slog.Debug(fmt.Sprintf("节点被排除: Cloudflare检测失败: %v", proxy["name"]))
 		return nil
 	}
 
 	google, err := platform.CheckGoogle(httpClient.Client)
-	if err != nil || !google {
+	if (err != nil || !google) && isStrictCheck {
+		slog.Debug(fmt.Sprintf("节点被排除: Google检测失败: %v", proxy["name"]))
 		return nil
+	}
+
+	// 如果是 SubUrls 且未开启 SubCheck，允许继续检测
+	if (!cloudflare || !google) && isSub && !config.GlobalConfig.SubCheck {
+		slog.Debug(fmt.Sprintf("跳过检测订阅代理: %v, cloudflare: %v, google: %v", proxy["name"], cloudflare, google))
+		res.Google = true
+		res.Cloudflare = true
 	}
 
 	var speed int
@@ -213,6 +230,7 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Resu
 	if config.GlobalConfig.SpeedTestUrl != "" && proxyType == "FreeSubUrls" {
 		speed, _, err = platform.CheckSpeed(httpClient.Client, Bucket)
 		if err != nil || speed < config.GlobalConfig.MinSpeed {
+			slog.Debug(fmt.Sprintf("节点被排除: Speed过低: %v", proxy["name"]))
 			return nil
 		}
 	}
@@ -412,9 +430,9 @@ func (pc *ProxyChecker) incrementAvailable() {
 }
 
 // distributeProxies 分发代理任务
-func (pc *ProxyChecker) distributeProxies(proxies []map[string]any) {
+func (pc *ProxyChecker) distributeProxies(proxies []map[string]any, proxyType string) {
 	for _, proxy := range proxies {
-		if config.GlobalConfig.SuccessLimit > 0 && atomic.LoadInt32(&pc.available) >= config.GlobalConfig.SuccessLimit {
+		if config.GlobalConfig.SuccessLimit > 0 && proxyType == "FreeSubUrls" && atomic.LoadInt32(&pc.available) >= config.GlobalConfig.SuccessLimit {
 			break
 		}
 		if ForceClose.Load() {

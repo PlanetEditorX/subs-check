@@ -41,6 +41,7 @@ type Config struct {
 	ListenPort           string   `yaml:"listen-port"`
 	RenameNode           bool     `yaml:"rename-node"`
 	KeepSuccessProxies   bool     `yaml:"keep-success-proxies"`
+	SubCheck             bool     `yaml:"sub-check"`
 	OutputDir            string   `yaml:"output-dir"`
 	AppriseApiServer     string   `yaml:"apprise-api-server"`
 	RecipientUrl         []string `yaml:"recipient-url"`

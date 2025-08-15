@@ -7,13 +7,28 @@ import (
 )
 
 func CheckCloudflare(httpClient *http.Client) (bool, error) {
-	if success, err := checkCloudflareEndpoint(httpClient, "https://gstatic.com/generate_204", 204); err == nil && success {
-		// 不要判断这些网站，因为可能403
-		// return checkCloudflareEndpoint(httpClient, "https://www.cloudflare.com", 200)
-		return true, nil
-	}
-	return false, nil
+    endpoints := []struct {
+        url        string
+        statusCode int
+    }{
+        {"https://gstatic.com/generate_204", 204},
+        {"https://www.cloudflare.com/cdn-cgi/trace", 200},
+        {"https://1.1.1.1", 200},
+        {"https://www.cloudflare.com", 200}, // 可选，可能403
+    }
+
+    for _, ep := range endpoints {
+        success, err := checkCloudflareEndpoint(httpClient, ep.url, ep.statusCode)
+        if err == nil && success {
+            slog.Debug("Cloudflare检测通过: " + ep.url)
+            return true, nil
+        }
+        slog.Debug("Cloudflare检测失败: " + ep.url)
+    }
+
+    return false, nil
 }
+
 
 func checkCloudflareEndpoint(httpClient *http.Client, url string, statusCode int) (bool, error) {
 	// 创建请求
