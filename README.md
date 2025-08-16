@@ -73,9 +73,9 @@ yexundao/subs-check:latest
 ```
 
 ### 结合Github Actions优选
-1.修改`congig.yaml`文件的`free-sub-urls`项，保留自己的生成文件，比如：`https://raw.githubusercontent.com/PlanetEditorX/subs-check/refs/heads/dev/assets/Best.yaml`
-2.设置并每日定期执行`check-sub.yml`工作流，将会根据设置先筛选一遍可访问的节点信息，每天执行后，更新仓库`assets/Best.yaml`文件。
-3.本地服务器Docker运行
+- 修改`congig.yaml`文件的`free-sub-urls`项，保留自己的生成文件，比如：`https://raw.githubusercontent.com/PlanetEditorX/subs-check/refs/heads/dev/assets/Best.yaml`
+- 设置并每日定期执行`check-sub.yml`工作流，将会根据设置先筛选一遍可访问的节点信息，每天执行后，更新仓库`assets/Best.yaml`文件。
+- 本地服务器Docker运行
 
 ### 🪜 代理设置（可选）
 <details>
