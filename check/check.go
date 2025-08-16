@@ -36,6 +36,7 @@ type Result struct {
 	Cloudflare bool
 	Disney     bool
 	Gemini     bool
+	Github     bool
 	TikTok     string
 	IP         string
 	IPRisk     string
@@ -273,6 +274,10 @@ func (pc *ProxyChecker) checkProxy(proxy map[string]any, proxyType string) *Resu
 				if ok, _ := platform.CheckGemini(httpClient.Client); ok {
 					res.Gemini = true
 				}
+			case "github":
+				if ok, _ := platform.CheckGitHub(httpClient.Client); ok {
+					res.Github = true
+				}
 			case "iprisk":
 				country, ip := proxyutils.GetProxyCountry(httpClient.Client)
 				if ip == "" {
@@ -371,6 +376,10 @@ func (pc *ProxyChecker) updateProxyName(res *Result, httpClient *ProxyClient, sp
 		case "gemini":
 			if res.Gemini {
 				tags = append(tags, "Gemini")
+			}
+		case "github":
+			if res.Github {
+				tags = append(tags, "Github")
 			}
 		case "iprisk":
 			if res.IPRisk != "" {

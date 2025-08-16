@@ -55,6 +55,7 @@ platforms:
   - youtube
   - openai
   - gemini
+  - github
   # - iprisk
   # - tiktok
   # - netflix
